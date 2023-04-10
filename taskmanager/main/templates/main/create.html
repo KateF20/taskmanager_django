@@ -5,12 +5,12 @@ Create task
 {% endblock %}
 
 {% block content %}
-    <h1>Create task</h1>
+    <h1 style="color: royalblue">Create task</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.title }} <br>
         {{ form.task }} <br>
-        <button type="submit" class="btn btn-success">Add</button>
+        <button type="submit" class="btn btn-success" style="color: antiquewhite; background-color: royalblue">Add</button>
         <span>{{ error }}</span>
     </form>
 {% endblock %}

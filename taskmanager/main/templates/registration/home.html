@@ -4,9 +4,9 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
+    <p style="font-size: large; color: royalblue">Hi {{ user.username }}!</p>
 {% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">Log In</a>
+  <p style="font-size: large; color: firebrick">You are not logged in</p>
+  <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'login' %}">Log In</a>
 {% endif %}
 {% endblock %}
