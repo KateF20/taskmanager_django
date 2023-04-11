@@ -13,18 +13,16 @@ def about(request):
 
 
 def create(request):
-    # print(request.user)
     error = ''
-    if request.method == 'POST':
-        form = TaskForm(request.POST)
+    form = TaskForm(request.POST)
 
+    if request.method == 'POST':
         if form.is_valid():
             form.save(user=request.user)
             return redirect('home')
         else:
             error = 'Not valid form'
 
-    form = TaskForm()
     context = {
         'form': form,
         'error': error
