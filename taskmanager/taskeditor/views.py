@@ -31,4 +31,4 @@ def create(request):
 
 
 def home(request):
-    return render(request, 'registration/home.html')
+    return render(request, 'main/home.html')
