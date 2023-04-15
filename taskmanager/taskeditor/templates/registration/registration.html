@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css'>
+</head>
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"></svg>
+        <span class="fs-4" style="color: royalblue"></span>
+      </a>
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a href="{% url 'main' %}" class="nav-link active" aria-current="page"
+                                style="color: antiquewhite; background-color: royalblue">Go back</a></li>
+
+        <li class="nav-item">
+            <a href="{% url 'login' %}" class="nav-link" style="color: royalblue">Sign in</a>
+        </li>
+    </ul>
+</header>
+<body>
+    <div style='text-align: center; width: 300px; height: 550px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px;
+    background-color: #eee; outline-color: antiquewhite; outline-style: solid; outline-width: 2px'>
+    <form action="" method="POST" style="justify-content: center">
+        <h1 class="h3 mb-3 fw-normal" style="color: royalblue">Register</h1>
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div>
+                <p>{{ field.label }}: <br> {{ field }}</p>
+
+                {% for error in field.errors %}
+                    <small style="color: red">{{ error }}</small>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button aria-current="page"
+                style="color: antiquewhite; background-color: royalblue; border-radius: 5px"
+                type="submit">Register</button>
+    </form>
+    </div>
+
+
+</body>

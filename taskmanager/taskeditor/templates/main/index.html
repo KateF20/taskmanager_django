@@ -6,7 +6,8 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h1>Your task manager</h1>
+        <h1 style="font-size: large; color: royalblue">Hi {{ user.username }}!</h1>
+        <h2>Your task manager</h2>
         {% if tasks %}
             {% for elem in tasks %}
                 <div class="alert alert-warning mt-2">
