@@ -21,7 +21,7 @@ class TaskForm(ModelForm):
         }
 
     def save(self, commit=True, user=None):
-        self.cleaned_data['user'] = user
+        self.instance.user = user
         return super(TaskForm, self).save(commit=commit)
 
 

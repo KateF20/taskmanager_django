@@ -6,8 +6,11 @@ from django.contrib import messages
 
 
 def index(request):
-    tasks = Task.objects.order_by('-id')
-    return render(request, 'main/index.html', {'title': 'Main page', 'tasks': tasks})
+    if request.user.is_authenticated:
+        tasks = Task.objects.filter(user=request.user).order_by('-id')
+        return render(request, 'main/index.html', {'title': 'Main page', 'tasks': tasks})
+    else:
+        return render(request, 'main/index.html')
 
 
 def about(request):
