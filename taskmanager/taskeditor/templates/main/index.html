@@ -4,12 +4,6 @@
 {{ title }}
 {% endblock %}
 
-{#{% block content %}#}
-{#    {% if user.is_authenticated %}#}
-{#      Hi {{ user.username }}!    #}
-{#    {% endif %}#}
-{#{% endblock %}#}
-
 {% block content %}
     {% if user.is_authenticated %}
         <h1>Your task manager</h1>
@@ -23,9 +17,7 @@
         {% else %}
             <p>There no tasks</p>
         {% endif %}
-{#        <p><a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'logout' %}">Log Out</a></p>#}
     {% else %}
         <p>You are not logged in</p>
-{#        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'login' %}">Log In</a>#}
     {% endif %}
 {% endblock %}
