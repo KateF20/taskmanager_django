@@ -12,6 +12,7 @@
                 <div class="alert alert-warning mt-2">
                     <h3>{{ elem.title }}</h3>
                     <p>{{ elem.task }}</p>
+                    <a href="{% url 'delete' elem.id %}" class="nav-link" style="color: royalblue">Delete task</a>
                 </div>
             {% endfor %}
         {% else %}
