@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Task
-from .forms import TaskForm, NewUserForm
-from django.contrib.auth import login
-from django.contrib import messages
+from .forms import TaskForm
 
 
 def index(request):
@@ -35,16 +33,12 @@ def create(request):
     return render(request, 'main/create.html', context)
 
 
-def registration(request):
+def delete_task(request, id):
+    task = Task.objects.get(id=id)
+
     if request.method == 'POST':
-        form = NewUserForm(request.POST)
-        if form.is_valid():
-            form.save()
+        task.delete()
+        return redirect('home')
 
-            messages.success(request, f'Your account has been created. You can log in now!')
-            return redirect('/')
-    else:
-        form = NewUserForm()
-
-    context = {'form': form}
-    return render(request, 'registration/registration.html', context)
+    context = {'task': task}
+    return render(request, 'main/delete_task.html', context)
