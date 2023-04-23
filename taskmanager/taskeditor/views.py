@@ -6,13 +6,9 @@ from .forms import TaskForm
 def index(request):
     if request.user.is_authenticated:
         tasks = Task.objects.filter(user=request.user).order_by('-id')
-        return render(request, 'main/index.html', {'title': 'Main page', 'tasks': tasks})
+        return render(request, 'main/index.html', {'tasks': tasks})
     else:
         return render(request, 'main/index.html')
-
-
-def about(request):
-    return render(request, 'main/about.html')
 
 
 def create(request):
@@ -22,7 +18,7 @@ def create(request):
     if request.method == 'POST':
         if form.is_valid():
             form.save(user=request.user)
-            return redirect('home')
+            return redirect('/')
         else:
             error = 'Not valid form'
 
@@ -38,7 +34,7 @@ def delete_task(request, id):
 
     if request.method == 'POST':
         task.delete()
-        return redirect('home')
+        return redirect('/')
 
     context = {'task': task}
     return render(request, 'main/delete_task.html', context)
