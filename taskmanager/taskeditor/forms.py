@@ -1,6 +1,5 @@
 from .models import Task
-from django.forms import ModelForm, TextInput, Textarea
-from django import forms
+from django.forms import ModelForm, TextInput, Textarea, CharField, EmailField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -26,9 +25,9 @@ class TaskForm(ModelForm):
 
 
 class NewUserForm(UserCreationForm):
-    first_name = forms.CharField(max_length=101)
-    last_name = forms.CharField(max_length=101)
-    email = forms.EmailField()
+    first_name = CharField(max_length=101)
+    last_name = CharField(max_length=101)
+    email = EmailField()
 
     class Meta:
         model = User

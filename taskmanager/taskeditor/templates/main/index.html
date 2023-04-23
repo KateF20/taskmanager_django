@@ -6,7 +6,11 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h1 style="font-size: large; color: royalblue">Hi {{ user.username }}!</h1>
+        {% if user.first_name and user.last_name %}
+            <h1 style="font-size: large; color: royalblue">Hi {{ user.first_name}} {{ user.last_name}}!</h1>
+        {% else %}
+            <h1 style="font-size: large; color: royalblue">Hi {{ user.username }}!</h1>
+        {% endif %}
         <h2>Your task manager</h2>
         {% if tasks %}
             {% for elem in tasks %}
