@@ -6,5 +6,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('taskmanager.taskeditor.urls')),
-    path('registration', registration, name='registration')
+    path('registration', registration, name='registration'),
 ]

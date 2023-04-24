@@ -5,15 +5,11 @@ from django.contrib import messages
 
 
 def index(request):
+    tasks = []
     if request.user.is_authenticated:
         tasks = Task.objects.filter(user=request.user).order_by('-id')
-        return render(request, 'main/index.html', {'title': 'Main page', 'tasks': tasks})
-    else:
-        return render(request, 'main/index.html')
 
-
-def about(request):
-    return render(request, 'main/about.html')
+    return render(request, 'main/index.html', {'tasks': tasks})
 
 
 def create(request):
@@ -35,15 +31,13 @@ def create(request):
 
 
 def registration(request):
+    form = NewUserForm(request.POST or None)
     if request.method == 'POST':
-        form = NewUserForm(request.POST)
         if form.is_valid():
             form.save()
 
             messages.success(request, f'Your account has been created. You can log in now!')
             return redirect('/')
-
-    form = NewUserForm()
 
     context = {'form': form}
     return render(request, 'registration/registration.html', context)

@@ -10,7 +10,6 @@
     <form action="" method="POST" style="justify-content: center">
         <h1 class="h3 mb-3 fw-normal" style="color: royalblue">Register</h1>
         {% csrf_token %}
-
         {% for field in form %}
             <div>
                 {{ field.label }}: <br> {{ field }}
