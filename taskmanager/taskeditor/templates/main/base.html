@@ -13,7 +13,7 @@
       </a>
 
       <ul class="nav nav-pills">
-        <li class="nav-item"><a href="{% url 'main' %}" class="nav-link active" aria-current="page"
+        <li class="nav-item"><a href="{% url 'home' %}" class="nav-link active" aria-current="page"
                                 style="color: antiquewhite; background-color: royalblue">Main</a></li>
         <li class="nav-item"><a href="{% url 'create' %}" class="nav-link" style="color: royalblue">Add new task</a></li>
           {% if user.is_authenticated %}

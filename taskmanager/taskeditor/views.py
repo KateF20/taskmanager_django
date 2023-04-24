@@ -18,7 +18,7 @@ def create(request):
     if request.method == 'POST':
         if form.is_valid():
             form.save(user=request.user)
-            return redirect('/')
+            return redirect('home')
         else:
             error = 'Not valid form'
 
@@ -34,7 +34,7 @@ def delete_task(request, id):
 
     if request.method == 'POST':
         task.delete()
-        return redirect('/')
+        return redirect('home')
 
     context = {'task': task}
     return render(request, 'main/delete_task.html', context)
