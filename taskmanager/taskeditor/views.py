@@ -14,7 +14,7 @@ def index(request):
 
 def create(request):
     error = ''
-    form = TaskForm(request.POST)
+    form = TaskForm(request.POST or None)
 
     if request.method == 'POST':
         if form.is_valid():

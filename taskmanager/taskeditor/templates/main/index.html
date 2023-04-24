@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block content %}
-    <h1 style="font-size: large; color: royalblue">
     {% if user.is_authenticated %}
+        <h1 style="font-size: large; color: royalblue">
         {% if user.first_name and user.last_name %}
             Hi {{ user.first_name}} {{ user.last_name}}!
         {% else %}
