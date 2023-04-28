@@ -4,10 +4,15 @@ from .forms import TaskForm, NewUserForm
 from django.contrib import messages
 
 
-def index(request):
+def index(request, status):
     tasks = []
     if request.user.is_authenticated:
-        tasks = Task.objects.filter(user=request.user).order_by('-id')
+        if status == 'all':
+            tasks = Task.objects.filter(user=request.user).order_by('-id')
+        elif status == 'completed':
+            tasks = Task.objects.filter(user=request.user, is_completed=True).order_by('-id')
+        elif status == 'uncompleted':
+            tasks = Task.objects.filter(user=request.user, is_completed=False).order_by('-id')
 
     return render(request, 'main/index.html', {'tasks': tasks})
 

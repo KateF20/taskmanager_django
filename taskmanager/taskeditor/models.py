@@ -6,6 +6,7 @@ class Task(models.Model):
     title = models.CharField('Title', max_length=50)
     task = models.TextField('Description')
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    is_completed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

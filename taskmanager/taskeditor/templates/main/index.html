@@ -14,12 +14,20 @@ Main page
         {% endif %}
         </h1>
         <h2>Your task manager</h2>
+        <select name="filter" onchange="window.location.href=this.value">
+            <option value="">Filter tasks</option>
+            <option value="{% url 'home' status='all' %}">All tasks</option>
+            <option value="{% url 'home' status='completed' %}?status=completed">Completed tasks</option>
+            <option value="{% url 'home' status='uncompleted' %}?status=uncompleted">Uncompleted tasks</option>
+        </select>
         {% if tasks %}
             {% for elem in tasks %}
                 <div class="alert alert-warning mt-2">
                     <h3>{{ elem.title }}</h3>
                     <p>{{ elem.task }}</p>
                     <a href="{% url 'delete' elem.id %}" class="nav-link" style="color: royalblue">Delete task</a>
+                    <input type="checkbox" id="is_complete" name="is_complete">
+                    <label for="is_complete">Task is complete</label><br>
                 </div>
             {% endfor %}
         {% else %}
