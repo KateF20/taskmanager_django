@@ -19,7 +19,7 @@ def create(request):
     if request.method == 'POST':
         if form.is_valid():
             form.save(user=request.user)
-            return redirect('main')
+            return redirect('home')
         else:
             error = 'Not valid form'
 
