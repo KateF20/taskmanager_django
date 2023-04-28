@@ -1,0 +1,27 @@
+{% extends 'registration/base.html' %}
+
+{% block link %}
+    <a href="{% url 'login' %}" class="nav-link" style="color: royalblue">Log in</a>
+{% endblock %}
+
+{% block content %}
+    <div style='text-align: center; width: 300px; height: 500px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px;
+    background-color: #eee; outline-color: antiquewhite; outline-style: solid; outline-width: 2px'>
+    <form action="" method="POST" style="justify-content: center">
+        <h1 class="h3 mb-3 fw-normal" style="color: royalblue">Register</h1>
+        {% csrf_token %}
+        {% for field in form %}
+            <div>
+                {{ field.label }}: <br> {{ field }}
+
+                {% for error in field.errors %}
+                    <br><small style="color: red">{{ error }}</small>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button aria-current="page"
+                style="color: antiquewhite; background-color: royalblue; border-radius: 5px; margin-top: 10px"
+                type="submit">Register</button>
+    </form>
+    </div>
+{% endblock %}

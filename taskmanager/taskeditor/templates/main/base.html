@@ -15,16 +15,24 @@
       <ul class="nav nav-pills">
         <li class="nav-item"><a href="{% url 'main' %}" class="nav-link active" aria-current="page"
                                 style="color: antiquewhite; background-color: royalblue">Main</a></li>
-        <li class="nav-item"><a href="{% url 'create' %}" class="nav-link" style="color: royalblue">Add new task</a></li>
           {% if user.is_authenticated %}
+              <li class="nav-item"><a href="{% url 'create' %}" class="nav-link" style="color: royalblue">Add new task</a></li>
               <li class="nav-item">
                   <a href="{% url 'logout' %}" class="nav-link" style="color: royalblue">Log out</a>
               </li>
           {% else %}
               <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'login' %}">Log In</a>
+              <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'registration' %}">Register</a>
           {% endif %}
       </ul>
     </header>
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
     <div class="container">{% block content %}{% endblock %}</div>
 </body>
 </html>
