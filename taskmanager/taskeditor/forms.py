@@ -1,5 +1,7 @@
 from .models import Task
-from django.forms import ModelForm, TextInput, Textarea
+from django.forms import ModelForm, TextInput, Textarea, CharField, EmailField
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
 class TaskForm(ModelForm):
@@ -20,3 +22,13 @@ class TaskForm(ModelForm):
     def save(self, commit=True, user=None):
         self.instance.user = user
         return super(TaskForm, self).save(commit=commit)
+
+
+class NewUserForm(UserCreationForm):
+    first_name = CharField(max_length=101)
+    last_name = CharField(max_length=101)
+    email = EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
