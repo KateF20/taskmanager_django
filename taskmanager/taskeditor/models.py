@@ -13,5 +13,3 @@ class Task(models.Model):
     class Meta:
         verbose_name = 'Tasky'
         verbose_name_plural = 'Taskies'
-
-
