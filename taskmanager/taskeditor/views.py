@@ -30,6 +30,17 @@ def create(request):
     return render(request, 'main/create.html', context)
 
 
+def delete_task(request, id):
+    task = Task.objects.get(id=id)
+
+    if request.method == 'POST':
+        task.delete()
+        return redirect('home')
+
+    context = {'task': task}
+    return render(request, 'main/delete_task.html', context)
+
+
 def registration(request):
     form = NewUserForm(request.POST or None)
     if request.method == 'POST':
