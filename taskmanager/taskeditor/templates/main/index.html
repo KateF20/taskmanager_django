@@ -26,8 +26,11 @@ Main page
                     <h3>{{ elem.title }}</h3>
                     <p>{{ elem.task }}</p>
                     <a href="{% url 'delete' elem.id %}" class="nav-link" style="color: royalblue">Delete task</a>
-                    <input type="checkbox" id="is_complete" name="is_complete">
-                    <label for="is_complete">Task is complete</label><br>
+                    <form method="post" action="{% url 'check_completed' elem.id %}">
+                        {% csrf_token %}
+                        <input type="checkbox" id="is_complete_{{ elem.id }}" name="is_complete" {% if elem.is_completed %}checked{% endif %} onchange="this.form.submit()">
+                        <label for="is_complete_{{ elem.id }}">Task is complete</label>
+                    </form>
                 </div>
             {% endfor %}
         {% else %}

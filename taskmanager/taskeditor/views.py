@@ -47,6 +47,20 @@ def delete_task(request, id):
     return render(request, 'main/delete_task.html', context)
 
 
+def check_completed(request, id):
+    task = Task.objects.get(id=id)
+
+    if request.method == 'POST':
+        if request.POST.get('is_complete') == 'on':
+            task.is_completed = True
+        else:
+            task.is_completed = False
+        task.save()
+
+    context = {'task': task}
+    return render(request, 'main/index.html', context)
+
+
 def registration(request):
     form = NewUserForm(request.POST or None)
     if request.method == 'POST':
