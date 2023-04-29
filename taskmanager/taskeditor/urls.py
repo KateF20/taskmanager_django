@@ -1,9 +1,8 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='home'),
     path('create', views.create, name='create'),
-    path('delete/<int:id>/', views.delete_task, name='delete'),
-    path('<str:status>/', views.index, name='home'),
+    path('delete/<int:id>', views.delete_task, name='delete'),
+    re_path(r'^(?P<status>all|completed|uncompleted)?$', views.index, name='home'),
 ]

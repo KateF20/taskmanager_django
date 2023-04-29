@@ -16,9 +16,9 @@ Main page
         <h2>Your task manager</h2>
         <select name="filter" onchange="window.location.href=this.value">
             <option value="">Filter tasks</option>
-            <option value="{% url 'home' status='all' %}">All tasks</option>
-            <option value="{% url 'home' status='completed' %}?status=completed">Completed tasks</option>
-            <option value="{% url 'home' status='uncompleted' %}?status=uncompleted">Uncompleted tasks</option>
+            <option value="{% url 'home' %}">All tasks</option>
+            <option value="{% url 'home' status='completed' %}">Completed tasks</option>
+            <option value="{% url 'home' status='uncompleted' %}">Uncompleted tasks</option>
         </select>
         {% if tasks %}
             {% for elem in tasks %}
