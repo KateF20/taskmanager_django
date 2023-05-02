@@ -31,7 +31,7 @@ Main page
                     <div style="display: grid">
                         <form method="post" class="completion-form" style="margin-bottom: 15px" action="{% url 'check_completed' elem.id %}">
                             {% csrf_token %}
-                            <input type="checkbox" id="is_complete_{{ elem.id }}" name="is_complete" {% if elem.is_completed %}checked{% endif %} onchange="this.form.submit()">
+                            <input type="checkbox" id="is_complete_{{ elem.id }}" name="is_complete" {% if elem.is_completed %}checked{% endif %}>
                             <label for="is_complete_{{ elem.id }}">Task is complete</label>
                         </form>
                         <button class="btn btn-outline-secondary" type="button">
@@ -46,5 +46,14 @@ Main page
     {% else %}
         <p>You are not logged in</p>
     {% endif %}
-    <script></script>
+    <script>
+        $(document).on('change', '.completion-form', function() {
+            $.post({
+                url: this.action,
+                data: $(this).serialize(),
+            }).then(function() {
+                // noop
+            });
+        });
+    </script>
 {% endblock %}
