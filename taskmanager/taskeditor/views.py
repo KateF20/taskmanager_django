@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Task
 from .forms import TaskForm, NewUserForm
@@ -57,8 +58,7 @@ def check_completed(request, id):
             task.is_completed = False
         task.save()
 
-    context = {'task': task}
-    return render(request, 'main/index.html', context)
+    return HttpResponse()
 
 
 def registration(request):
