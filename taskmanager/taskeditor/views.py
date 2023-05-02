@@ -12,7 +12,7 @@ def index(request, status=None):
             pass
         elif status == 'completed':
             tasks = tasks.filter(is_completed=True)
-        elif status == 'uncompleted':
+        elif status is None:
             tasks = tasks.filter(is_completed=False)
 
     return render(request, 'main/index.html', {'tasks': tasks})

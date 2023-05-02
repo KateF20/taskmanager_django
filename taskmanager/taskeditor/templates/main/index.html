@@ -18,9 +18,9 @@ Main page
           <ul class="dropdown-menu position-static d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" data-bs-theme="light">
               <li><a class="dropdown-item rounded-2" href="#">Filter tasks</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item rounded-2" href="{% url 'home' %}">All tasks</a></li>
+              <li><a class="dropdown-item rounded-2" href="{% url 'home' status='all' %}">All tasks</a></li>
               <li><a class="dropdown-item rounded-2" href="{% url 'home' status='completed' %}">Completed tasks</a></li>
-              <li><a class="dropdown-item rounded-2" href="{% url 'home' status='uncompleted' %}">Uncompleted tasks</a></li>
+              <li><a class="dropdown-item rounded-2" href="{% url 'home' %}">Uncompleted tasks</a></li>
           </ul>
         </div>
         {% if tasks %}
@@ -29,7 +29,7 @@ Main page
                     <h2>{{ elem.title }}</h2>
                     <p>{{ elem.task }}</p>
                     <div style="display: grid">
-                        <form method="post" style="margin-bottom: 15px" action="{% url 'check_completed' elem.id %}">
+                        <form method="post" class="completion-form" style="margin-bottom: 15px" action="{% url 'check_completed' elem.id %}">
                             {% csrf_token %}
                             <input type="checkbox" id="is_complete_{{ elem.id }}" name="is_complete" {% if elem.is_completed %}checked{% endif %} onchange="this.form.submit()">
                             <label for="is_complete_{{ elem.id }}">Task is complete</label>
@@ -46,4 +46,5 @@ Main page
     {% else %}
         <p>You are not logged in</p>
     {% endif %}
+    <script></script>
 {% endblock %}
