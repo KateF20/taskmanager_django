@@ -14,13 +14,31 @@ Main page
         {% endif %}
         </h1>
         <h2>Your task manager</h2>
+        <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+          <ul class="dropdown-menu position-static d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" data-bs-theme="light">
+              <li><a class="dropdown-item rounded-2" href="#">Filter tasks</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item rounded-2" href="{% url 'home' status='all' %}">All tasks</a></li>
+              <li><a class="dropdown-item rounded-2" href="{% url 'home' status='completed' %}">Completed tasks</a></li>
+              <li><a class="dropdown-item rounded-2" href="{% url 'home' %}">Uncompleted tasks</a></li>
+          </ul>
+        </div>
         {% if tasks %}
             {% for elem in tasks %}
-                <div class="alert alert-warning mt-2">
-                    <h3>{{ elem.title }}</h3>
+                <div class="h-100 p-5 bg-body-tertiary border rounded-3" style="width: 500px;">
+                    <h2>{{ elem.title }}</h2>
                     <p>{{ elem.task }}</p>
-                    <a href="{% url 'delete' elem.id %}" class="nav-link" style="color: royalblue">Delete task</a>
-                </div>
+                    <div style="display: grid">
+                        <form method="post" class="completion-form" style="margin-bottom: 15px" action="{% url 'check_completed' elem.id %}">
+                            {% csrf_token %}
+                            <input type="checkbox" id="is_complete_{{ elem.id }}" name="is_complete" {% if elem.is_completed %}checked{% endif %}>
+                            <label for="is_complete_{{ elem.id }}">Task is complete</label>
+                        </form>
+                        <button class="btn btn-outline-secondary" type="button">
+                            <a href="{% url 'delete' elem.id %}" class="nav-link">Delete task</a>
+                        </button>
+                    </div>
+                </div><br>
             {% endfor %}
         {% else %}
             <p>There no tasks</p>
@@ -28,4 +46,14 @@ Main page
     {% else %}
         <p>You are not logged in</p>
     {% endif %}
+    <script>
+        $(document).on('change', '.completion-form', function() {
+            $.post({
+                url: this.action,
+                data: $(this).serialize(),
+            }).then(function() {
+                // noop
+            });
+        });
+    </script>
 {% endblock %}
