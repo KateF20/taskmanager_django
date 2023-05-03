@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Task(models.Model):
     title = models.CharField('Title', max_length=50)
     task = models.TextField('Description')
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_completed = models.BooleanField(default=False)
 
     def __str__(self):
