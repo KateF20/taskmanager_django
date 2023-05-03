@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from .models import Task
 from .forms import TaskForm, NewUserForm
@@ -15,6 +15,8 @@ def index(request, status=None):
             tasks = tasks.filter(is_completed=True)
         elif status is None:
             tasks = tasks.filter(is_completed=False)
+        else:
+            return HttpResponseNotFound('Page not found')
 
     return render(request, 'main/index.html', {'tasks': tasks})
 
