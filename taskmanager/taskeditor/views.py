@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from .models import Task
 from .forms import TaskForm, NewUserForm
 from django.contrib import messages
+from django.views.decorators.http import require_http_methods
 
 
 def index(request, status=None):
@@ -50,15 +51,15 @@ def delete_task(request, id):
     return render(request, 'main/delete_task.html', context)
 
 
+@require_http_methods(["POST"])
 def check_completed(request, id):
     task = Task.objects.get(id=id)
 
-    if request.method == 'POST':
-        if request.POST.get('is_complete') == 'on':
-            task.is_completed = True
-        else:
-            task.is_completed = False
-        task.save()
+    if request.POST.get('is_complete') == 'on':
+        task.is_completed = True
+    else:
+        task.is_completed = False
+    task.save()
 
     return HttpResponse()
 
