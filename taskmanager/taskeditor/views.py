@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
-from .models import Task
-from .forms import TaskForm, NewUserForm
+from .models import Task, Group
+from .forms import TaskForm, NewUserForm, GroupForm
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 
@@ -75,3 +75,20 @@ def registration(request):
 
     context = {'form': form}
     return render(request, 'registration/registration.html', context)
+
+
+def create_group(request):
+    form = GroupForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save(user=request.user)
+            return redirect('home')
+    else:
+        error = 'Not valid form'
+
+    context = {
+        'form': form,
+        'error': error
+    }
+
+    return render(request, 'main/create_group.html', context)

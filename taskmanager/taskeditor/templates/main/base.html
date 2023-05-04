@@ -18,6 +18,7 @@
                                 style="color: antiquewhite; background-color: royalblue">Main</a></li>
           {% if user.is_authenticated %}
               <li class="nav-item"><a href="{% url 'create' %}" class="nav-link" style="color: royalblue">Add new task</a></li>
+              <li class="nav-item"><a href="{% url 'create_group' %}" class="nav-link" style="color: royalblue">Add new group</a></li>
               <li class="nav-item">
                   <a href="{% url 'logout' %}" class="nav-link" style="color: royalblue">Log out</a>
               </li>

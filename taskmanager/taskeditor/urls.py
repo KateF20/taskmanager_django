@@ -6,4 +6,5 @@ urlpatterns = [
     path('create', views.create, name='create'),
     path('delete/<int:id>', views.delete_task, name='delete'),
     path('check_completed/<int:id>', views.check_completed, name='check_completed'),
+    path('create_group', views.create_group, name='create_group'),
 ]
