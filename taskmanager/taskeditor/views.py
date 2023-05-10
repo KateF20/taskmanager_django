@@ -8,6 +8,7 @@ from django.views.decorators.http import require_http_methods
 
 def index(request, status=None):
     tasks = []
+    groups = Group.objects.filter(user=request.user)
     if request.user.is_authenticated:
         tasks = Task.objects.filter(user=request.user).order_by('-id')
         if status == 'all':
@@ -19,7 +20,9 @@ def index(request, status=None):
         else:
             return HttpResponseNotFound('Page not found')
 
-    return render(request, 'main/index.html', {'tasks': tasks})
+    context = {'tasks': tasks, 'groups': groups}
+
+    return render(request, 'main/index.html', context)
 
 
 def create(request):
@@ -81,7 +84,7 @@ def create_group(request):
     form = GroupForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            form.save(user=request.user)
+            form.save(commit=True, user=request.user)
             return redirect('home')
     else:
         error = 'Not valid form'

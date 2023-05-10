@@ -6,6 +6,13 @@ class Group(models.Model):
     group = models.CharField('Group', max_length=50)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
+    def __str__(self):
+        return self.group
+
+    class Meta:
+        verbose_name = 'Folder'
+        verbose_name_plural = 'Folders'
+
 
 class Task(models.Model):
     title = models.CharField('Title', max_length=50)
