@@ -26,7 +26,10 @@ Main page
                   <li><a class="dropdown-item rounded-2" href="#">Filter groups</a></li>
                   <li><hr class="dropdown-divider"></li>
                    {% for elem in groups %}
-                        <li><a class="dropdown-item rounded-2" href="{% url 'home' %}">{{ elem.group}}</a></li>
+                        <li><a class="dropdown-item rounded-2" href="{% url 'home' status=elem.id%}">{{ elem.name}}</a></li>
+                       <button class="btn btn-outline-secondary" type="button">
+                            <a href="{% url 'delete_group' elem.id %}" class="nav-link">Delete group</a>
+                        </button>
                    {% endfor %}
                </ul>
               {% endif %}

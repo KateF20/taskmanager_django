@@ -3,11 +3,11 @@ from django.contrib.auth.models import User
 
 
 class Group(models.Model):
-    group = models.CharField('Group', max_length=50)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.CharField('Group', max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.group
+        return self.name
 
     class Meta:
         verbose_name = 'Folder'

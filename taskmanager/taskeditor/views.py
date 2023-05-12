@@ -17,6 +17,8 @@ def index(request, status=None):
             tasks = tasks.filter(is_completed=True)
         elif status is None:
             tasks = tasks.filter(is_completed=False)
+        elif str(status).isdigit():
+            tasks = tasks.filter(group_id=status)
         else:
             return HttpResponseNotFound('Page not found')
 
@@ -86,12 +88,16 @@ def create_group(request):
         if form.is_valid():
             form.save(commit=True, user=request.user)
             return redirect('home')
-    else:
-        error = 'Not valid form'
 
-    context = {
-        'form': form,
-        'error': error
-    }
+    return render(request, 'main/create_group.html', {'form': form})
 
-    return render(request, 'main/create_group.html', context)
+
+def delete_group(request, id):
+    group = Group.objects.get(id=id)
+
+    if request.method == 'POST':
+        group.delete()
+        return redirect('home')
+
+    context = {'group': group}
+    return render(request, 'main/delete_group.html', context)

@@ -21,7 +21,7 @@ class TaskForm(ModelForm):
 
     def save(self, commit=True, user=None):
         self.instance.user = user
-        return super(TaskForm, self).save(commit=commit)
+        return super().save(commit=commit)
 
 
 class NewUserForm(UserCreationForm):
@@ -37,9 +37,9 @@ class NewUserForm(UserCreationForm):
 class GroupForm(ModelForm):
     class Meta:
         model = Group
-        fields = ['group']
+        fields = ['name']
         widgets = {
-            'group': TextInput(attrs={
+            'name': TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter group name'
             }),
@@ -47,4 +47,4 @@ class GroupForm(ModelForm):
 
     def save(self, commit=True, user=None):
         self.instance.user = user
-        return super(GroupForm, self).save(commit=commit)
+        return super().save(commit=commit)

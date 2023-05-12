@@ -8,7 +8,7 @@ Create group
     <h1 style="color: royalblue">Create group</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.group }} <br>
+        {{ form.name }} <br>
         <button type="submit" class="btn btn-success" style="color: antiquewhite; background-color: royalblue">Add</button>
     </form>
 {% endblock %}
