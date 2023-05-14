@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 
 
-def index(request, status=None):
+def index(request, status=None, group_id=None):
     tasks = []
     groups = Group.objects.filter(user=request.user)
     if request.user.is_authenticated:
@@ -17,10 +17,14 @@ def index(request, status=None):
             tasks = tasks.filter(is_completed=True)
         elif status is None:
             tasks = tasks.filter(is_completed=False)
-        elif str(status).isdigit():
-            tasks = tasks.filter(group_id=status)
         else:
             return HttpResponseNotFound('Page not found')
+
+        if group_id is not None:
+            if group_id.isdigit():
+                tasks = tasks.filter(group_id=group_id)
+            else:
+                return HttpResponseNotFound('Page not found')
 
     context = {'tasks': tasks, 'groups': groups}
 
