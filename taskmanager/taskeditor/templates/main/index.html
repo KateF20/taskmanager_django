@@ -27,9 +27,7 @@ Main page
                   <li><hr class="dropdown-divider"></li>
                    {% for group in groups %}
                         <li><a class="dropdown-item rounded-2" href="{% url 'home' group_id=group.id %}">{{ group.name}}</a></li>
-                       <button class="btn btn-outline-secondary" type="button">
-                            <a href="{% url 'delete_group' group.id %}" class="nav-link">Delete group</a>
-                        </button>
+                        <a href="{% url 'delete_group' group.id %}" class="btn btn-outline-secondary">Delete group</a>
                    {% endfor %}
                </ul>
               {% endif %}
@@ -46,9 +44,7 @@ Main page
                             <input type="checkbox" id="is_complete_{{ task.id }}" name="is_complete" {% if task.is_completed %}checked{% endif %}>
                             <label for="is_complete_{{ task.id }}">Task is complete</label>
                         </form>
-                        <button class="btn btn-outline-secondary" type="button">
-                            <a href="{% url 'delete' task.id %}" class="nav-link">Delete task</a>
-                        </button>
+                        <a href="{% url 'delete' task.id %}" class="btn btn-outline-secondary">Delete task</a>
                     </div>
                 </div><br>
             {% endfor %}
