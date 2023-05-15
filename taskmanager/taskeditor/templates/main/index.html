@@ -17,37 +17,37 @@ Main page
           <ul class="dropdown-menu position-static d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" data-bs-theme="light">
               <li><a class="dropdown-item rounded-2" href="#">Filter tasks</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item rounded-2" href="{% url 'home' status='all' %}">All tasks</a></li>
-              <li><a class="dropdown-item rounded-2" href="{% url 'home' status='completed' %}">Completed tasks</a></li>
-              <li><a class="dropdown-item rounded-2" href="{% url 'home' %}">Uncompleted tasks</a></li>
+              <li><a class="dropdown-item rounded-2" href="{% url 'home' group_id=group_id status='all' %}">All tasks</a></li>
+              <li><a class="dropdown-item rounded-2" href="{% url 'home' group_id=group_id status='completed' %}">Completed tasks</a></li>
+              <li><a class="dropdown-item rounded-2" href="{% url 'home' group_id=group_id %}">Uncompleted tasks</a></li>
           </ul>
               {% if groups %}
                <ul class="dropdown-menu position-static d-grid gap-1 p-2 rounded-3 mx-0 shadow w-220px" data-bs-theme="light">
                   <li><a class="dropdown-item rounded-2" href="#">Filter groups</a></li>
                   <li><hr class="dropdown-divider"></li>
-                   {% for elem in groups %}
-                        <li><a class="dropdown-item rounded-2" href="{% url 'home' status=elem.id%}">{{ elem.name}}</a></li>
+                   {% for group in groups %}
+                        <li><a class="dropdown-item rounded-2" href="{% url 'home' group_id=group.id %}">{{ group.name}}</a></li>
                        <button class="btn btn-outline-secondary" type="button">
-                            <a href="{% url 'delete_group' elem.id %}" class="nav-link">Delete group</a>
+                            <a href="{% url 'delete_group' group.id %}" class="nav-link">Delete group</a>
                         </button>
                    {% endfor %}
                </ul>
               {% endif %}
         </div>
         {% if tasks %}
-            {% for elem in tasks %}
+            {% for task in tasks %}
                 <div class="h-100 p-5 bg-body-tertiary border rounded-3" style="width: 500px;">
-                    <h2>{{ elem.title }}</h2>
-                    <p>{{ elem.task }}</p>
-                    <p><b><i>{{ elem.group }}</i></b></p>
+                    <h2>{{ task.title }}</h2>
+                    <p>{{ task.task }}</p>
+                    <p><b><i>{{ task.group }}</i></b></p>
                     <div style="display: grid">
-                        <form method="post" class="completion-form" style="margin-bottom: 15px" action="{% url 'check_completed' elem.id %}">
+                        <form method="post" class="completion-form" style="margin-bottom: 15px" action="{% url 'check_completed' task.id %}">
                             {% csrf_token %}
-                            <input type="checkbox" id="is_complete_{{ elem.id }}" name="is_complete" {% if elem.is_completed %}checked{% endif %}>
-                            <label for="is_complete_{{ elem.id }}">Task is complete</label>
+                            <input type="checkbox" id="is_complete_{{ task.id }}" name="is_complete" {% if task.is_completed %}checked{% endif %}>
+                            <label for="is_complete_{{ task.id }}">Task is complete</label>
                         </form>
                         <button class="btn btn-outline-secondary" type="button">
-                            <a href="{% url 'delete' elem.id %}" class="nav-link">Delete task</a>
+                            <a href="{% url 'delete' task.id %}" class="nav-link">Delete task</a>
                         </button>
                     </div>
                 </div><br>

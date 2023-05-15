@@ -26,7 +26,7 @@ def index(request, status=None, group_id=None):
             else:
                 return HttpResponseNotFound('Page not found')
 
-    context = {'tasks': tasks, 'groups': groups}
+    context = {'tasks': tasks, 'groups': groups, 'status': status, 'group_id': group_id or ''}
 
     return render(request, 'main/index.html', context)
 
