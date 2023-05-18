@@ -8,8 +8,8 @@ from django.views.decorators.http import require_http_methods
 
 def index(request, status=None, group_id=None):
     tasks = []
-    groups = Group.objects.filter(user=request.user)
     if request.user.is_authenticated:
+        groups = Group.objects.filter(user=request.user)
         tasks = Task.objects.filter(user=request.user).order_by('-id')
         if status == 'all':
             pass
@@ -26,7 +26,7 @@ def index(request, status=None, group_id=None):
             else:
                 return HttpResponseNotFound('Page not found')
 
-    context = {'tasks': tasks, 'groups': groups, 'status': status, 'group_id': group_id or ''}
+    context = {'tasks': tasks, 'groups': groups, 'status': status, 'group_id': group_id}
 
     return render(request, 'main/index.html', context)
 

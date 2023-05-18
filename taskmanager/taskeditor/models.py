@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Group(models.Model):
-    name = models.CharField('Group', max_length=50)
+    name = models.CharField('Name', max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
