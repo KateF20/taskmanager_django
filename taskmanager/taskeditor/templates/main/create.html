@@ -10,7 +10,11 @@ Create task
         {% csrf_token %}
         {{ form.title }} <br>
         {{ form.task }} <br>
-        <button type="submit" class="btn btn-success" style="color: antiquewhite; background-color: royalblue">Add</button>
+        <div>
+            {{ form.group }} <br>
+            {{ form.group.errors }}
+        </div>
+        <button type="submit" class="btn btn-success" style="color: antiquewhite; background-color: royalblue; margin-top: 20px">Add</button>
         <span>{{ error }}</span>
     </form>
 {% endblock %}

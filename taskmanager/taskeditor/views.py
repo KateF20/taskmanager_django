@@ -1,15 +1,17 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
-from .models import Task
-from .forms import TaskForm, NewUserForm
+from .models import Task, Group
+from .forms import TaskForm, NewUserForm, GroupForm
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 
 
-def index(request, status=None):
+def index(request, status=None, group_id=None):
     tasks = []
+    groups = []
     if request.user.is_authenticated:
         tasks = Task.objects.filter(user=request.user).order_by('-id')
+        groups = Group.objects.filter(user=request.user)
         if status == 'all':
             pass
         elif status == 'completed':
@@ -19,7 +21,15 @@ def index(request, status=None):
         else:
             return HttpResponseNotFound('Page not found')
 
-    return render(request, 'main/index.html', {'tasks': tasks})
+        if group_id is not None:
+            if group_id.isdigit():
+                tasks = tasks.filter(group_id=group_id)
+            else:
+                return HttpResponseNotFound('Page not found')
+
+    context = {'tasks': tasks, 'groups': groups, 'status': status, 'group_id': group_id}
+
+    return render(request, 'main/index.html', context)
 
 
 def create(request):
@@ -75,3 +85,24 @@ def registration(request):
 
     context = {'form': form}
     return render(request, 'registration/registration.html', context)
+
+
+def create_group(request):
+    form = GroupForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save(commit=True, user=request.user)
+            return redirect('home')
+
+    return render(request, 'main/create_group.html', {'form': form})
+
+
+def delete_group(request, id):
+    group = Group.objects.get(id=id)
+
+    if request.method == 'POST':
+        group.delete()
+        return redirect('home')
+
+    context = {'group': group}
+    return render(request, 'main/delete_group.html', context)

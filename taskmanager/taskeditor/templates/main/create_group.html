@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Create group
+{% endblock %}
+
+{% block content %}
+    <h1 style="color: royalblue">Create group</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            {{ form.name }} <br>
+            {{ form.name.errors }}
+        </div>
+        <button type="submit" class="btn btn-success" style="color: antiquewhite; background-color: royalblue">Add</button>
+    </form>
+{% endblock %}
