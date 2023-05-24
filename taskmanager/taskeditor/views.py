@@ -8,9 +8,10 @@ from django.views.decorators.http import require_http_methods
 
 def index(request, status=None, group_id=None):
     tasks = []
+    groups = []
     if request.user.is_authenticated:
-        groups = Group.objects.filter(user=request.user)
         tasks = Task.objects.filter(user=request.user).order_by('-id')
+        groups = Group.objects.filter(user=request.user)
         if status == 'all':
             pass
         elif status == 'completed':
